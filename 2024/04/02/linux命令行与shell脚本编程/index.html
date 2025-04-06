@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>linux学习 - Hau&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Hau&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Hau&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="前言学习Linux，使用的书籍为《Linux轻松入门》(陈德全) linux概述linux &amp;#x3D; linux内核 + 程序库 + 用户程序接口  linux内核：提供OS(操作系统)的基本功能，如CPU调用、内存管理、进程管理； 模块：为了应对随时加入的代码，独立于内核外，模块化； 库(程序库)：提供函数和通用资源 Shell：硬件被内核管理，而内核又被保护，所以我们只能通过shell与内"><meta property="og:type" content="blog"><meta property="og:title" content="linux学习"><meta property="og:url" content="http://example.com/2024/04/02/linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"><meta property="og:site_name" content="Hau&#039;s Blog"><meta property="og:description" content="前言学习Linux，使用的书籍为《Linux轻松入门》(陈德全) linux概述linux &amp;#x3D; linux内核 + 程序库 + 用户程序接口  linux内核：提供OS(操作系统)的基本功能，如CPU调用、内存管理、进程管理； 模块：为了应对随时加入的代码，独立于内核外，模块化； 库(程序库)：提供函数和通用资源 Shell：硬件被内核管理，而内核又被保护，所以我们只能通过shell与内"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/Linux.jfif"><meta property="article:published_time" content="2024-04-02T10:45:31.000Z"><meta property="article:modified_time" content="2025-04-05T09:34:44.342Z"><meta property="article:author" content="Hau uhang"><meta property="article:tag" content="学习"><meta property="article:tag" content="命令"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/Linux.jfif"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/04/02/linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"},"headline":"linux学习","image":[],"datePublished":"2024-04-02T10:45:31.000Z","dateModified":"2025-04-05T09:34:44.342Z","author":{"@type":"Person","name":"Hau uhang"},"publisher":{"@type":"Organization","name":"Hau's Blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.png"}},"description":"前言学习Linux，使用的书籍为《Linux轻松入门》(陈德全) linux概述linux &#x3D; linux内核 + 程序库 + 用户程序接口  linux内核：提供OS(操作系统)的基本功能，如CPU调用、内存管理、进程管理； 模块：为了应对随时加入的代码，独立于内核外，模块化； 库(程序库)：提供函数和通用资源 Shell：硬件被内核管理，而内核又被保护，所以我们只能通过shell与内"}</script><link rel="canonical" href="http://example.com/2024/04/02/linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8Eshell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Hau&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about_me">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="在GitHub下载" href="https://github.com/HauUhang"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/img/Linux.jfif" alt="linux学习"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-04-02T10:45:31.000Z" title="2024/4/2 18:45:31">2024-04-02</time>发表</span><span class="level-item"><time dateTime="2025-04-05T09:34:44.342Z" title="2025/4/5 17:34:44">2025-04-05</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span><span class="level-item">13 分钟读完 (大约2006个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">linux学习</h1><div class="content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习Linux，使用的书籍为《Linux轻松入门》(陈德全)</p>
+<h2 id="linux概述"><a href="#linux概述" class="headerlink" title="linux概述"></a>linux概述</h2><p>linux &#x3D; linux内核 + 程序库 + 用户程序接口</p>
+<ul>
+<li>linux内核：提供OS(操作系统)的基本功能，如CPU调用、内存管理、进程管理；</li>
+<li>模块：为了应对随时加入的代码，独立于内核外，模块化；</li>
+<li>库(程序库)：提供函数和通用资源</li>
+<li>Shell：硬件被内核管理，而内核又被保护，所以我们只能通过shell与内核沟通；</li>
+</ul>
+<h1 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>文件分为四类：可共享的、不可共享的、不变的、可变的</p>
+<p>FHS规定了一个根目录(&#x2F;),linux所有目录都会在根目录下</p>
+<ul>
+<li><p>&#x2F;bin：bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。</p>
+</li>
+<li><p>&#x2F;boot：这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+</li>
+<li><p>&#x2F;dev ：dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。</p>
+</li>
+<li><p>&#x2F;etc：etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p>
+</li>
+<li><p>&#x2F;home：用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve。</p>
+</li>
+<li><p>&#x2F;lib：lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。</p>
+</li>
+<li><p>&#x2F;lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p>
+</li>
+<li><p>&#x2F;media：linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</p>
+</li>
+<li><p>&#x2F;mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 &#x2F;mnt&#x2F; 上，然后进入该目录就可以查看光驱里的内容了。</p>
+</li>
+<li><p>&#x2F;opt：opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+</li>
+<li><p>&#x2F;proc：proc 是 Processes(进程) 的缩写，&#x2F;proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+</li>
+<li><p>&#x2F;root：该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+</li>
+<li><p>&#x2F;sbin：s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。</p>
+</li>
+<li><p>&#x2F;selinux：这个目录是 Redhat&#x2F;CentOS 所特有的目录，Selinux 是一个安全机制，类似于 windows 的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+</li>
+<li><p>&#x2F;srv：该目录存放一些服务启动之后需要提取的数据。</p>
+</li>
+<li><p>&#x2F;sys：这是 Linux2.6 内核的一个很大的变化。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 。<br>sysfs 文件系统集成了下面3种文件系统的信息：针对进程信息的 proc 文件系统、针对设备的 devfs 文件系统以及针对伪终端的 devpts 文件系统。</p>
+</li>
+<li><p>&#x2F;tmp：tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。</p>
+</li>
+<li><p>&#x2F;usr：usr 是 unix system resources(unix 系统资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录。</p>
+</li>
+<li><p>&#x2F;usr&#x2F;bin：系统用户使用的应用程序。</p>
+</li>
+<li><p>&#x2F;usr&#x2F;sbin：超级用户使用的比较高级的管理程序和系统守护程序。</p>
+</li>
+<li><p>&#x2F;usr&#x2F;src：内核源代码默认的放置目录。</p>
+</li>
+<li><p>&#x2F;var：var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+</li>
+<li><p>&#x2F;run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 &#x2F;var&#x2F;run 目录，应该让它指向 run。</p>
+</li>
+</ul>
+<h2 id="普通用户和管理员登录命令符不同"><a href="#普通用户和管理员登录命令符不同" class="headerlink" title="普通用户和管理员登录命令符不同"></a>普通用户和管理员登录命令符不同</h2><p>[root@ubuntu~]中的root就是管理员，如果是普通用户则显示用户名字。</p>
+<p>此外<code>#</code>表示管理员，<code>$</code>表示普通用户</p>
+<p>关于linux命令，可以使用<code>man</code>命令查找</p>
+<h2 id="管理文件和目录"><a href="#管理文件和目录" class="headerlink" title="管理文件和目录"></a>管理文件和目录</h2><ol>
+<li>基本</li>
+</ol>
+<ul>
+<li><p><code>pwd</code>：显示目录当前所在位置</p>
+</li>
+<li><p><code>cd[目录]</code>：这个路径可以使用绝对路径或相对路径来指定想要去的地方<br>有几个特殊的符号需要额外的记住：</p>
+<ul>
+<li>~ 当前用户的家目录</li>
+<li>~[用户名] 指定用户的家目录，中间没有空格</li>
+<li>. 表示此层目录</li>
+<li>..或cd ..&#x2F; 表示上一层目录</li>
+<li>&#x2F; 表示根目录</li>
+<li>- 表示前一个工作目录</li>
+</ul>
+</li>
+<li><p><code>ls[选项][目录名称]</code> ：列举该目录下的文件，通常只用<code>ls</code>，后面的需要再查吧</p>
+</li>
+</ul>
+<ol start="2">
+<li>创建文件：</li>
+</ol>
+<ul>
+<li><code>mkdir[选项] 文件名</code>：创建目录命令</li>
+<li><code>touch[选项] 文件名</code>：创建空白文件</li>
+</ul>
+<ol start="3">
+<li>删除文件：</li>
+</ol>
+<ul>
+<li><code>rmdir</code>：删除空文件</li>
+<li><code>rm[选项]文件名或目录名</code>：rm命令不能直接删除一个文件，需要加上选项  <ul>
+<li>-r：删除指定的文件和目录</li>
+<li>-f：未经用户同意直接删除</li>
+<li>-i：删除之前有提示</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>查看文件</li>
+</ol>
+<ul>
+<li><code>cat[选项]文件名</code>：这个命令可以从文件内容的第一行开始显示，不过不适用内容较长的文件；</li>
+<li><code>more文件名</code>：可以一页一页显示文件的内容，只能向下查看文件内容<br>(more和less都有具体的按键操作，可以百度查下)</li>
+<li><code>less文件名</code>：可以向上查看文件内容</li>
+<li><code>nl[选项]文件名</code>：可以输出带有行号的文件内容<ul>
+<li>-b：指定行号指定的方式</li>
+<li>-n：列出行号表示的方法</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>移动</li>
+</ol>
+<ul>
+<li><code>mv[选项]源文件或目录 目标文件或目录</code>：移动<ul>
+<li>-i：有相同文件时会问是否覆盖</li>
+<li>-f：不问，直接覆盖</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>复制</li>
+</ol>
+<ul>
+<li><code>cp[选项]源文件或目录 目标文件或目录</code>：用于复制的<ul>
+<li>-a:保留所有信息并递归地复制；</li>
+<li>-r:原样复制源目录的层次结构；</li>
+<li>-d:复制时保留链接，这样不会失去链接文件；</li>
+<li>-p:保留文件属性(权限、时间)；</li>
+<li>-i:若存在相同文件，询问是否覆盖</li>
+</ul>
+</li>
+</ul>
+<ol start="7">
+<li>确定文件类型</li>
+</ol>
+<ul>
+<li><code>file[选项]文件名</code>：查看文件类型</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>linux学习</p><p><a href="http://example.com/2024/04/02/linux命令行与shell脚本编程/">http://example.com/2024/04/02/linux命令行与shell脚本编程/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Hau uhang</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-04-02</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-04-05</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="知识共享" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="署名" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="非商业用途" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%AD%A6%E4%B9%A0/">学习</a><a class="link-muted mr-2" rel="tag" href="/tags/%E5%91%BD%E4%BB%A4/">命令</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/Alipay.jpg" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat.jpg" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/08/08/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E4%B8%8Everilog%E7%BB%93%E5%90%88/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">数字电路与verilog结合</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/01/26/Python%E7%88%AC%E8%99%AB/"><span class="level-item">Python爬虫</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "6e7d948c819868b7e63911e034945af8",
+            repo: "Some-of-Your-GitHub-Repo",
+            owner: "you_github_name",
+            clientID: "49e917220c24d828d782",
+            clientSecret: "eda41cdb9f9038da2dc68f54cc9d844627a47787",
+            admin: ["you_github_name"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Hau"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Hau</p><p class="is-size-6 is-block">Didital Engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Guangdong, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">20</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">10</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/HauUhang" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Linken" href="https://www.linkedin.com/in/robin-hau-98573b269/"><i class="fab fa-linkedin-in"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Zhihu" href="https://www.zhihu.com/people/Aurora7july"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Bilibili" href="https://space.bilibili.com/1174458156?spm_id_from=333.33.0.0"><i class="fab fa-bilibili"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="QQ" href="https://qm.qq.com/q/v0YWKvp0EE"><i class="fab fa-qq"></i></a></div></div></div><!--!--><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%B8%AA%E4%BA%BA/"><span class="level-start"><span class="level-item">个人</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">学习</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E5%AD%97IC%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%84%91%E8%A2%8B%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/"><span class="level-start"><span class="level-item">数字IC工程师脑袋里有什么</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2025/04/"><span class="level-start"><span class="level-item">四月 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/03/"><span class="level-start"><span class="level-item">三月 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/08/"><span class="level-start"><span class="level-item">八月 2024</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/04/"><span class="level-start"><span class="level-item">四月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/12/"><span class="level-start"><span class="level-item">十二月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/11/"><span class="level-start"><span class="level-item">十一月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">九月 2023</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/07/"><span class="level-start"><span class="level-item">七月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/03/"><span class="level-start"><span class="level-item">三月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-04-05T09:23:14.000Z">2025-04-05</time></p><p class="title"><a href="/2025/04/05/fifo/">FIFO基础</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-03-23T11:01:45.000Z">2025-03-23</time></p><p class="title"><a href="/2025/03/23/%E8%AE%BA%E5%B9%B8%E7%A6%8F%E2%80%94%E2%80%94%E6%96%AF%E5%A4%9A%E8%91%9B%E4%B8%BB%E4%B9%89/">论幸福——斯多葛主义</a></p><p class="categories"><a href="/categories/%E4%B8%AA%E4%BA%BA/">个人</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-08-29T06:06:53.000Z">2024-08-29</time></p><p class="title"><a href="/2024/08/29/%E6%97%85%E6%B8%B8-%E6%96%B0%E5%8A%A0%E5%9D%A1/">旅游-新加坡</a></p><p class="categories"><a href="/categories/%E4%B8%AA%E4%BA%BA/">个人</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-08-08T02:41:23.000Z">2024-08-08</time></p><p class="title"><a href="/2024/08/08/ubuntu%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">ubuntu学习记录</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-08-08T01:14:37.000Z">2024-08-08</time></p><p class="title"><a href="/2024/08/08/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E4%B8%8Everilog%E7%BB%93%E5%90%88/">数字电路与verilog结合</a></p><p class="categories"><a href="/categories/%E6%95%B0%E5%AD%97IC%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%84%91%E8%A2%8B%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88/">数字IC工程师脑袋里有什么</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/FIFO/"><span class="tag">FIFO</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B8%AA%E4%BA%BA/"><span class="tag">个人</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BB%A3%E7%A0%81/"><span class="tag">代码</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4/"><span class="tag">命令</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E4%B9%A0/"><span class="tag">学习</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%9D%E8%80%83/"><span class="tag">思考</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E5%AD%97IC%E8%AE%BE%E8%AE%A1/"><span class="tag">数字IC设计</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E5%AD%97IC%E9%AA%8C%E8%AF%81/"><span class="tag">数字IC验证</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%85%E8%A1%8C/"><span class="tag">旅行</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">4</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Hau&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2025 Hau uhang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">Peace & Love</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="知识共享" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="署名4.0国际" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="在GitHub下载" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
